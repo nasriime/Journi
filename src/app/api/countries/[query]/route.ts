@@ -11,7 +11,7 @@ export async function GET(request: Request, { params }: { params: { query: strin
       return NextResponse.json({ error: 'Failed to fetch ip' }, { status: 500 }); 
     }
     const data = await response.json();
-    const list = listingCountries(data.results.lat, data.results.lon);
+    const list = listingCountries(data.lat, data.lon);
     const options = list.filter(country => country.value.toLowerCase().includes(params.query.toLowerCase())); 
     return NextResponse.json({ results: options });
   } catch (error) {

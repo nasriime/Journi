@@ -22,7 +22,7 @@ export default function usePage() {
       }
 
       const data = await response.json();
-      return data.options;
+      return data.results;
     } catch (error) {
       console.error(error);
     }

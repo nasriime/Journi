@@ -1,48 +1,41 @@
 'use client';
 
-import React, { useEffect, useId } from 'react';
-import Select  from 'react-select';
+import React, { useId } from 'react';
+import AsyncSelect from 'react-select/async';
 import '@/lib/env';
 
-import { listingCountries } from '@/lib/helper';
 import { OptionType } from "@/lib/types";
 
 import usePage  from '@/app/usePage';
 
 export default function HomePage() {
   const {  
-          listedCountries,
-          setListedCountries,
           selectedCountry,
-          getCurrentCountry,
-          onChange
+          onChange,
+          getCountries
         } = usePage();
- 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCurrentCountry();
-      if (data) {
-        const list = listingCountries(data.results.lat, data.results.lon);
-        setListedCountries(list);
-      }
-    };
-
-    fetchData();
-  }, [])
+  const promiseOptions = async (inputValue: string) =>
+    new Promise<OptionType[]>((resolve) => {
+        getCountries(inputValue)
+          .then(results => {
+              resolve(results || []);
+          });
+    });
 
   return (
     <main>
       <section className='bg-white'>
         <div className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center'>
-        <Select
+        <AsyncSelect
           instanceId={useId()}
-          className="basic-single"
+          className="w-full"
           classNamePrefix="select"
           isClearable={true}
           isSearchable={true}
           name="country"
-          options={listedCountries}
+          placeholder="Select a country"
+          loadOptions={promiseOptions}
           onChange={(option) => onChange((option as OptionType))}
           />
           {selectedCountry && <>
