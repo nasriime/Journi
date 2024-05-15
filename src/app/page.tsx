@@ -1,6 +1,5 @@
 'use client';
 
-import Head from 'next/head';
 import React, { useEffect, useId } from 'react';
 import Select  from 'react-select';
 import '@/lib/env';
@@ -10,30 +9,30 @@ import { OptionType } from "@/lib/types";
 import usePage  from '@/app/usePage';
 
 export default function HomePage() {
-  const {  listedCountries,
+  const {  
+          listedCountries,
           setListedCountries,
           selectedCountry,
-          getCountries,
-          onChange
+          getCurrentCountry,
+          onChange,
+          listingCountries
         } = usePage();
  
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCountries();
+      const data = await getCurrentCountry();
       if (data) {
-          setListedCountries(data);
+        const list = listingCountries(data.results.lat, data.results.lon);
+        setListedCountries(list);
       }
-  };
+    };
 
-  fetchData();
+    fetchData();
   }, [])
 
   return (
     <main>
-      <Head>
-        <title>Hi</title>
-      </Head>
       <section className='bg-white'>
         <div className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center'>
         <Select

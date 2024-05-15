@@ -6,6 +6,7 @@ export type listedCountriesType = {
 export type OptionType = {
   value: string;
   label: string;
+  distance: number
 };
 
 type flags = {
