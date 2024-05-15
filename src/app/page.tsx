@@ -4,6 +4,7 @@ import React, { useEffect, useId } from 'react';
 import Select  from 'react-select';
 import '@/lib/env';
 
+import { listingCountries } from '@/lib/helper';
 import { OptionType } from "@/lib/types";
 
 import usePage  from '@/app/usePage';
@@ -14,8 +15,7 @@ export default function HomePage() {
           setListedCountries,
           selectedCountry,
           getCurrentCountry,
-          onChange,
-          listingCountries
+          onChange
         } = usePage();
  
 
