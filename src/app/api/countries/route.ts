@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import countries  from '@/data/countries.json';
+import countries from '@/data/countries.json';
 
 export async function GET() {
   try {

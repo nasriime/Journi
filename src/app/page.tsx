@@ -1,26 +1,28 @@
 'use client';
 
 import Head from 'next/head';
-import React, { useEffect, useId, useState } from 'react';
-import Select from 'react-select';
+import React, { useEffect, useId,useState } from 'react';
+import Select  from 'react-select';
 import '@/lib/env';
 
-import countries  from '@/data/countries.json';
-interface IListedCountries {
-  label: string;
-  value: string;
-}
+import { IListedCountries } from "@/lib/types";
+
+import usePage  from '@/app/usePage';
+
 export default function HomePage() {
+  const { getCountries } = usePage();
   const [listedCountries, setListedCountries] = useState<IListedCountries[]>([]);
 
   useEffect(() => {
-    const options = countries.map(country => ({
-      label: country.name, 
-      value: country.name
-    }));
+    const fetchData = async () => {
+      const data = await getCountries();
+      if (data) {
+          setListedCountries(data);
+      }
+  };
 
-    setListedCountries(options) 
-  },[])
+  // fetchData();
+  }, [getCountries])
 
   return (
     <main>
