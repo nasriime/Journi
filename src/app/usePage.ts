@@ -1,11 +1,13 @@
 import { useState } from "react";
 
-import { listedCountriesType, OptionType } from "@/lib/types";
+import { countryType,listedCountriesType, OptionType } from "@/lib/types";
+
+import countries from '@/data/countries.json';
 
 
 export default function usePage() {  
   const [listedCountries, setListedCountries] = useState<listedCountriesType[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState<countryType>();
   async function getCountries(): Promise<listedCountriesType[] | undefined> {
     try {
       const response = await fetch('/api/countries', {
@@ -47,8 +49,11 @@ export default function usePage() {
   }
 
   const onChange = (option: OptionType) => {
-    setSelectedCountry(option?.value);
- }
+    const selected: countryType | undefined = countries.find(country => country.name === option?.value);
+    if(selected) {
+      setSelectedCountry(selected);
+    }
+  }
 
   return {
     listedCountries,

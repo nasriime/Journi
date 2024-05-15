@@ -13,7 +13,6 @@ export default function HomePage() {
   const {  listedCountries,
           setListedCountries,
           selectedCountry,
-          setSelectedCountry,
           getCountries,
           onChange
         } = usePage();
@@ -47,7 +46,10 @@ export default function HomePage() {
           options={listedCountries}
           onChange={(option) => onChange((option as OptionType))}
           />
-          {selectedCountry && <h1>{selectedCountry}</h1>}
+          {selectedCountry && <>
+            <h1>{selectedCountry.name}</h1>
+            <h1>{selectedCountry.capital}</h1>
+          </>}
         </div>
       </section>
     </main>
