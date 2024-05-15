@@ -1,17 +1,23 @@
 'use client';
 
 import Head from 'next/head';
-import React, { useEffect, useId,useState } from 'react';
+import React, { useEffect, useId } from 'react';
 import Select  from 'react-select';
 import '@/lib/env';
 
-import { IListedCountries } from "@/lib/types";
+import { OptionType } from "@/lib/types";
 
 import usePage  from '@/app/usePage';
 
 export default function HomePage() {
-  const { getCountries } = usePage();
-  const [listedCountries, setListedCountries] = useState<IListedCountries[]>([]);
+  const {  listedCountries,
+          setListedCountries,
+          selectedCountry,
+          setSelectedCountry,
+          getCountries,
+          onChange
+        } = usePage();
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,8 +27,8 @@ export default function HomePage() {
       }
   };
 
-  // fetchData();
-  }, [getCountries])
+  fetchData();
+  }, [])
 
   return (
     <main>
@@ -39,7 +45,9 @@ export default function HomePage() {
           isSearchable={true}
           name="country"
           options={listedCountries}
-      />
+          onChange={(option) => onChange((option as OptionType))}
+          />
+          {selectedCountry && <h1>{selectedCountry}</h1>}
         </div>
       </section>
     </main>

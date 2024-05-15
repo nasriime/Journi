@@ -1,7 +1,12 @@
-import { IListedCountries } from "@/lib/types";
-export default function usePage() {  
+import { useState } from "react";
 
-  async function getCountries(): Promise<IListedCountries[] | undefined> {
+import { listedCountriesType, OptionType } from "@/lib/types";
+
+
+export default function usePage() {  
+  const [listedCountries, setListedCountries] = useState<listedCountriesType[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+  async function getCountries(): Promise<listedCountriesType[] | undefined> {
     try {
       const response = await fetch('/api/countries', {
         headers: {
@@ -41,8 +46,17 @@ export default function usePage() {
     }
   }
 
+  const onChange = (option: OptionType) => {
+    setSelectedCountry(option?.value);
+ }
+
   return {
+    listedCountries,
+    setListedCountries,
+    selectedCountry,
+    setSelectedCountry,
     getCurrentCountry,
-    getCountries
+    getCountries,
+    onChange
   }
 }
