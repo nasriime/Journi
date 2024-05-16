@@ -28,7 +28,7 @@ export default function HomePage() {
     <main>
       <section className="mx-auto max-w-2xl">
         <div className="layout relative flex min-h-screen flex-col items-center py-12">
-          <h2 className="w-2/3 mb-8">Find your closest countries</h2>
+          <h2 className="w-2/3 mb-4">Find your closest countries</h2>
           <AsyncSelect
             cacheOptions
             instanceId={useId()}
@@ -42,7 +42,7 @@ export default function HomePage() {
             onChange={(option, meta) => onChange((option as OptionType), meta.action)}
             />  
           {selectedCountry && 
-            <div className="w-2/3 mt-8 flex justify-between items-center">
+            <div className="w-2/3 mt-4 flex flex-col md:flex-row justify-between items-center bg-slate-100 px-2 py-4 rounded-md">
               <div>
                 <h4>Capital: {selectedCountry.capital}</h4>
                 <h4>Language: {selectedCountry.languages[0]["name"]}</h4>
