@@ -17,21 +17,22 @@ export default function HomePage() {
           error
         } = usePage();
 
-    const loadOptionsDebounced = useCallback(
-      debounce((inputValue: string, callback: (options: any) => void) => {
-        getCountries(inputValue).then(options => callback(options))
-      }, 500),
-      []
+  const loadOptionsDebounced = useCallback(
+    debounce((inputValue: string, callback: (options: any) => void) => {
+      getCountries(inputValue).then(options => callback(options))
+    }, 500),
+    []
   );
 
   return (
     <main>
       <section className="mx-auto max-w-2xl">
-        <div className="layout relative flex min-h-screen flex-col  py-12">
-          <h2 className="mb-8">Find your closest countries</h2>
+        <div className="layout relative flex min-h-screen flex-col items-center py-12">
+          <h2 className="w-2/3 mb-8">Find your closest countries</h2>
           <AsyncSelect
+            cacheOptions
             instanceId={useId()}
-            className="w-full"
+            className="w-2/3"
             classNamePrefix="select"
             isClearable={true}
             isSearchable={true}
@@ -41,13 +42,13 @@ export default function HomePage() {
             onChange={(option, meta) => onChange((option as OptionType), meta.action)}
             />  
           {selectedCountry && 
-            <div className="mt-8 flex justify-between items-center">
+            <div className="w-2/3 mt-8 flex justify-between items-center">
               <div>
                 <h4>Capital: {selectedCountry.capital}</h4>
                 <h4>Language: {selectedCountry.languages[0]["name"]}</h4>
                 <h4>Region: {selectedCountry.region}</h4>
               </div>
-              <img className="w-1/4 mt-3 border-2 rounded-md" src={selectedCountry.flags.svg} alt="Flag" />
+              <img className="w-1/4 h-[70px] mt-3 border-2 rounded-md object-cover" src={selectedCountry.flags.svg} alt="Flag" />
             </div>}
           {error && <div className="text-red-500">{error}</div>}
         </div>
