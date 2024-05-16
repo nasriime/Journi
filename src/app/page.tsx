@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useId } from 'react';
+import React, { useCallback, useId } from 'react';
 import AsyncSelect from 'react-select/async';
 import '@/lib/env';
 
+import { debounce } from '@/lib/helper';
 import { OptionType } from "@/lib/types";
 
 import usePage  from '@/app/usePage';
@@ -16,13 +17,12 @@ export default function HomePage() {
           error
         } = usePage();
 
-  const promiseOptions = async (inputValue: string) =>
-    new Promise<OptionType[]>((resolve) => {
-        getCountries(inputValue)
-          .then(results => {
-              resolve(results || []);
-          });
-    });
+    const loadOptionsDebounced = useCallback(
+      debounce((inputValue: string, callback: (options: any) => void) => {
+        getCountries(inputValue).then(options => callback(options))
+      }, 500),
+      []
+  );
 
   return (
     <main>
@@ -37,7 +37,7 @@ export default function HomePage() {
             isSearchable={true}
             name="country"
             placeholder="Select a country"
-            loadOptions={promiseOptions}
+            loadOptions={loadOptionsDebounced}
             onChange={(option, meta) => onChange((option as OptionType), meta.action)}
             />  
           {selectedCountry && 

@@ -42,3 +42,20 @@ export function listingCountries(lat: number, lng: number) {
     return a.distance - b.distance;
   });
 }
+
+export function debounce<
+  T extends unknown[]
+>(
+  func: (...args: T) => void,
+  delay: number,
+):
+  (...args: T) => void
+{
+  let timer: ReturnType<typeof setTimeout>;
+  return (...args: T) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.call(null, ...args);
+    }, delay);
+  };
+}
