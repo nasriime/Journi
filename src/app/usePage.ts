@@ -10,17 +10,7 @@ export default function usePage() {
   const [selectedCountry, setSelectedCountry] = useState<countryType>();
   async function getCountries(query?: string): Promise<OptionType[] | undefined> {
     try {
-      const response = await fetch(`/api/countries/${query}`, {
-        headers: {
-          Accept: 'application/json',
-          method: 'GET',
-        }
-      });
-
-      if(!response) {
-        throw new Error('Failed to fetch countries');
-      }
-
+      const response = await fetch(`/api/countries/${query}`);
       const data = await response.json();
       return data.results;
     } catch (error) {
@@ -30,17 +20,7 @@ export default function usePage() {
 
   async function getCurrentCountry() {
     try {
-      const response = await fetch('/api/currentCountry', {
-        headers: {
-          Accept: 'application/json',
-          method: 'GET',
-        }
-      });
-
-      if(!response) {
-        throw new Error('Failed to fetch ip');
-      }
-      
+      const response = await fetch('/api/currentCountry');
       const data = await response.json();
       return data;
     } catch (error) {
