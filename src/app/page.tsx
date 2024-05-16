@@ -40,10 +40,15 @@ export default function HomePage() {
             loadOptions={promiseOptions}
             onChange={(option, meta) => onChange((option as OptionType), meta.action)}
             />  
-          {selectedCountry && <div className="mt-8">
-            <h4>Country: {selectedCountry.name}</h4>
-            <h4>Capital: {selectedCountry.capital}</h4>
-          </div>}
+          {selectedCountry && 
+            <div className="mt-8 flex justify-between items-center">
+              <div>
+                <h4>Capital: {selectedCountry.capital}</h4>
+                <h4>Language: {selectedCountry.languages[0]["name"]}</h4>
+                <h4>Region: {selectedCountry.region}</h4>
+              </div>
+              <img className="w-1/4 mt-3 border-2 rounded-sm" src={selectedCountry.flags.svg} alt="Flag" />
+            </div>}
           {error && <div className="text-red-500">{error}</div>}
         </div>
       </section>
