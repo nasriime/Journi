@@ -116,3 +116,11 @@
     background-size: 0 2px, 100% 2px;
   }
 }
+
+.select__input {
+  box-shadow: none!important;
+}
+
+.select__indicator.select__dropdown-indicator, .select__indicator-separator {
+  display: none!important;
+}
