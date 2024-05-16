@@ -47,7 +47,7 @@ export default function HomePage() {
                 <h4>Language: {selectedCountry.languages[0]["name"]}</h4>
                 <h4>Region: {selectedCountry.region}</h4>
               </div>
-              <img className="w-1/4 mt-3 border-2 rounded-sm" src={selectedCountry.flags.svg} alt="Flag" />
+              <img className="w-1/4 mt-3 border-2 rounded-md" src={selectedCountry.flags.svg} alt="Flag" />
             </div>}
           {error && <div className="text-red-500">{error}</div>}
         </div>

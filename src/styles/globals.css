@@ -124,3 +124,7 @@
 .select__indicator.select__dropdown-indicator, .select__indicator-separator {
   display: none!important;
 }
+
+.select__indicator.select__clear-indicator {
+  cursor: pointer;
+}
